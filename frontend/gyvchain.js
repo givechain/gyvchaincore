@@ -1,12 +1,9 @@
-// Moralis.initialize("APPLICATION_ID"); // Application id from moralis.io
-// Moralis.serverURL = "SERVER_URL"; //Server url from moralis.io
-const serverUrl = "https://wynvhxyi5eaa.usemoralis.com:2053/server"; //Server url from moralis.io
-const appId = "7EwiEKyfa1MAp3xOXs78SArnOeOyTiPgovlWnsKW"; // Application id from moralis.io
+// Moralis.initialize("MORALIS_APPLICATION_ID"); // Application id from moralis.io
+// Moralis.serverURL = "MORALIS_SERVER_URL"; //Server url from moralis.io
 Moralis.start({ serverUrl, appId });
 
 // GYV Chain Contract addresses
-const GYV_CONTRACT_ADDRESS = "0xE9b2CDe742a71e489089878ca5161449966E3029";
-const GYV_TOKEN_ADDRESS = "0x23799Cb60ca997080d0aD421bfA348b9641C6568";
+const GYV_CONTRACT_ADDRESS = "0x96F407d2DfD6B185d120e6d89171c9146721DF00";
 
 function getAddressTxt(address) {
     return `${address.substr(0, 4)}...${address.substr(address.length - 4, address.length)}`;
@@ -62,6 +59,8 @@ async function login_donor() {
 }
 
 async function donate() {
+    //let campaign = document.getElementById("campaign-selector").element.options[element.selectedIndex].value
+    let gyvCharityIndex = document.getElementById("campaign-selector").value
     let amount = document.getElementById("gyv_amount").value;
     // clear the value
     document.getElementById("gyv_amount").value = null;
@@ -69,18 +68,19 @@ async function donate() {
     if (amount <= 0) {
         alert("Please enter a valid donation amount!")
     } else {
-        alert("user " +  user.id + " is donating " + amount)
-        let weiConv = Math.pow(10, 12);
+        console.log("user " +  user.id + " is donating " + amount)
+        let weiConv = Math.pow(10, 18);
 
         // for testing, use _index = 0
-        gyvCharityIndex = 0;
+        //gyvCharityIndex = 0;
 
         console.log("amount in GYV: " + amount)
 
         // convert to wei equiv.
         amountConv = weiConv * amount;
 
-        console.log("converted amount: " + amount)
+        //console.log("converted amount: " + amountConv)
+        console.log("converted amount: " + Moralis.Units.Token(amount, "18"))
 
         //let senderAddress = user.attributes.ethAddress;
         //let senderAddress = user.attributes.authData.moralisEth.id;
@@ -88,19 +88,15 @@ async function donate() {
         console.log("address: " + senderAddress);
 
         // instantiate the token contract
-        let tokenAbi = window.tokenAbi;
-        let tokenContract = new web3.eth.Contract(tokenAbi, GYV_TOKEN_ADDRESS);
-
-        // instantiate the primary gyv contract
-        let gyvContractAbi = window.contractAbi;
-        let gyvContract = new web3.eth.Contract(gyvContractAbi, GYV_CONTRACT_ADDRESS);
+        let contractAbi = window.contractAbi;
+        let gyvContract = new web3.eth.Contract(contractAbi, GYV_CONTRACT_ADDRESS);
 
         // logging ...
-        console.log("token abi: ", tokenAbi)
-        console.log("token contract: ", tokenContract)
+        console.log("gyv abi: ", contractAbi)
+        console.log("gyv contract: ", gyvContract)
 
         // get the user's balance of GYV
-        let userTokenBalance = await tokenContract.methods.balanceOf(senderAddress)
+        let userTokenBalance = await gyvContract.methods.balanceOf(senderAddress)
             .call(function (err, res) {
                 if (err) {
                     console.log("An error occured while retrieving balance", err)
@@ -113,12 +109,8 @@ async function donate() {
         if (userTokenBalance > amountConv) {
             console.log("balance is good: ", userTokenBalance)
 
-            // logging ...
-            console.log("gyvContract abi: ", gyvContractAbi)
-            console.log("gyvContract: ", gyvContract)
-
             /*// total supply is only $GYV 1500?
-            tokenContract.methods
+            gyvContract.methods
                 .totalSupply()
                 .call(function (err, res){
                     if (err) {
@@ -129,37 +121,47 @@ async function donate() {
                 });*/
 
             // process the donation
-            /*tokenContract.methods
-                .donate(gyvCharityIndex, amountConv)
-                .send({from: senderAddress}, function (err, res){
-                    if (err) {
-                        console.log("An error occured while executing the donation", err)
+            /*gyvContract.methods
+                //.donate(gyvCharityIndex, amountConv)
+                //.donate(gyvCharityIndex, web3.eth.toWei(amount, 'ether'))
+                .donate(gyvCharityIndex, Moralis.Units.Token(amount, "18"))
+                .send({from: senderAddress}, function (error, transactonHash){
+                    if (error) {
+                        console.log("An error occured while executing the donation", error)
                         return
                     }
-                    console.log("Hash of the transaction: " + res)
+                    console.log("Hash of the transaction: " + transactonHash)
                 });
                 */
-            tokenContract.methods
-                .donate(gyvCharityIndex, amountConv)
-                .send({from: senderAddress});
+            /// *
 
-
-            /*(async function () {
-                let starting_balance = await daiToken.methods.balanceOf(receiverAddress).call();
-                daiToken.methods.transfer(receiverAddress, "100000000000000000000").send({from: senderAddress}, async function(error, transactonHash) {
-                    console.log("Submitted transaction with hash: ", transactonHash)
-                    let transactionReceipt = null
-                    while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
-                        transactionReceipt = await web3.eth.getTransactionReceipt(transactonHash);
-                        await sleep(expectedBlockTime)
+            // set up some variables for the asyncronous call to the donation
+            const expectedBlockTime = 1000;
+            const sleep = (milliseconds) => {
+                return new Promise(resolve => setTimeout(resolve, milliseconds))
+            }
+            // donate
+            (async function () {
+                gyvContract.methods
+                  .donate(gyvCharityIndex, Moralis.Units.Token(amount, "18"))
+                  .send({from: senderAddress}, async function (error, transactonHash) {
+                    if (error) {
+                      console.log("An error occured while executing the donation", error)
+                      return
                     }
-                    console.log("Got the transaction receipt: ", transactionReceipt)
-                    let final_balance = await daiToken.methods.balanceOf(receiverAddress).call();
-                    console.log('Starting balance was:', starting_balance);
-                    console.log('Ending balance is:', final_balance);
+
+                  console.log("Submitted transaction with hash: ", transactonHash);
+                  let transactionReceipt = null;
+                  while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+                    transactionReceipt = await web3.eth.getTransactionReceipt(transactonHash);
+                    await sleep(expectedBlockTime)
+                  }
+                  console.log("Got the transaction receipt: ", transactionReceipt);
+                  document.getElementById("gyving-thankyou").style.display = "block";
+                  alert("Thank you for your donation. Your receipt is: " + transactonHash)
                 });
-            })();*/
-        
+            })();
+
         } else {
             alert("Your balance of GYV, is insufficient to donate!")
         }
@@ -173,11 +175,11 @@ async function renderApp(type) {
     document.getElementById("donor_metamask_button").style.display = "none";
     // clear the value
     document.getElementById("connected-gyving").style.display = "block";
-    //document.getElementById("simply-connect").style.display = "none";
+    document.getElementById("gyving-thankyou").style.display = "none";
+
+    //"https://kovan.etherscan.io/tx/" + txn
 
     console.log("in renderApp(), type: ", type)
-    // maybe try this later ...
-    //buildAddrListComponent(user)
 
     // update the user's wallet type
     if(type = "donor") {
@@ -188,44 +190,43 @@ async function renderApp(type) {
         user.save();
     }
 
+    // enable Moralis Web3
     window.web3 = await Moralis.enableWeb3();
-    //window.contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
 
-    // before latest
-    //window.web3 = Moralis.enableWeb3();
-    //window.web3 = await Moralis.Web3.enable();
-
-    // token Contract
-    //tokenAbi = await (await fetch("./MartianMarket.json")).json();
-    /*
-    let tokenAbi = window.abiOne;
-    let tokenContract = new web3.eth.Contract(tokenAbi, GYV_TOKEN_ADDRESS);
-    console.log("token abi: ", tokenAbi)
-    console.log("token contract: ", tokenContract)
-    */
-
-    // gyv Contract
-    /*
-    let gyvContractAbi = window.abiTwo;
-    let gyvContract = new web3.eth.Contract(gyvContractAbi, GYV_CONTRACT_ADDRESS);
-    */
-
-    //updateStats();
+    updateStats();
   }
 
 async function updateStats() {
     let promises = [
-      Moralis.Cloud.run("biggestWinners", {}),
-      Moralis.Cloud.run("biggestLosers", {}),
-      Moralis.Cloud.run("biggestBets", {}),
+      Moralis.Cloud.run("testDonations", {})//,
+      //Moralis.Cloud.run("biggestLosers", {}),
+      //Moralis.Cloud.run("biggestBets", {}),
     ];
     let results = await Promise.all(promises);
   
-    processBiggestWinners(results[0]);
-    processBiggestLosers(results[1]);
-    processBiggestBets(results[2]);
+    console.log("testDonations query")
+    console.log(results)
+    processDonations(results[0]);
+    //processCampaigns(results[1]);
+    //processTransactions(results[2]);
   }
 
+function addRowToTable(tableId, data) {
+    let tableRow = document.createElement("tr");
+    data.forEach((element) => {
+      let newRow = document.createElement("td");
+      newRow.innerHTML = element;
+      tableRow.appendChild(newRow);
+    });
+    document.getElementById(tableId).appendChild(tableRow);
+  }
+  
+function processDonations(data) {
+    data.forEach((row) => {
+      //addRowToTable("top_donations", [row.campaignId, row.pendingAmount]);
+    });
+  }
+ 
 function init() {
     user = Moralis.User.current();
     //const user = await Moralis.User.current();
