@@ -1,0 +1,35 @@
+dependencies:
+  # - <organisation/repo>@<version>
+  - OpenZeppelin/openzeppelin-contracts@3.4.0
+  - smartcontractkit/chainlink-brownie-contracts@1.1.1
+compiler:
+  solc: 
+    remappings: 
+      - '@openzeppelin=OpenZeppelin/openzeppelin-contracts@3.4.0'
+      - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.1.1'
+dotenv: .env
+wallets: 
+  from_key: ${PRIVATE_KEY}
+  from_key_1: ${PRIVATE_KEY_1}
+  from_key_2: ${PRIVATE_KEY_2}
+networks:
+    # any settings given here will replace the defaults
+  default: development
+  development:
+      host: http://127.0.0.1
+      gas_price: 0
+      persist: true
+      reverting_tx_gas_limit: 6721975
+      test_rpc:
+          cmd: ganache-cli
+          port: 8545
+          gas_limit: 6721975
+          accounts: 10
+          evm_version: istanbul
+          mnemonic: ${GANACHE_LOCAL_MNEMONIC}
+  ganache-local:
+    chain_id: 5777
+    persist: true
+    verify: 'False'
+  kovan: 
+    verify: 'True'
