@@ -25,6 +25,7 @@ As a concept, GYV Chain is an early representation of the potential and capacity
 Here are a few little points on how to prep for the firing up of our home page and then actually donating!
 
 - "Download" this very project from GitHub (select "download.zip" by pressing the CODE button) and open the zip file
+- Be sure to unzip the file to ensure the webpages load correctly
 - Navigate to the following directory with your preferred browser (Chromium is recommended) and open the page Home.html
   - `./frontend/GYVweb1.1/Home.html`
 - Prepare for a donation by setting up MetaMask (a secure wallet, easy to use)
