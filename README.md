@@ -25,26 +25,26 @@ As a concept, GYV Chain is an early representation of the potential and capacity
 Here are a few little points on how to prep for the firing up of our home page and then actually donating!
 
 - "Download" this very project from GitHub (select "download.zip" by pressing the CODE button) and open the zip file
-- Be sure to unzip the file to ensure the webpages load correctly
+- Be sure to unzip the file to ensure the pages load correctly
 - Navigate to the following directory with your preferred browser (Chromium is recommended) and open the page Home.html
   - `./frontend/GYVweb1.1/Home.html`
 - Prepare for a donation by setting up MetaMask (a secure wallet, easy to use)
-  - MetaMask has as great starter article [here](https://metamask.zendesk.com/hc/en-us/articles/360015489531-Getting-started-with-MetaMask)
-  - Add Ethereum to your wallet (NOTE: this needs to be done on the Kovan Testnet using what is known as a faucet, a.k.a a tap :)
-  - Find the faucet [here](https://faucets.chain.link/kovan)
+  - MetaMask has a great starter article [here](https://metamask.zendesk.com/hc/en-us/articles/360015489531-Getting-started-with-MetaMask)
+  - Add Ethereum to your wallet.  NOTE: this needs to be done on the Kovan Testnet using what is known as a faucet, a.k.a a tap :)
+  - A really good faucet can be found [here](https://faucets.chain.link/kovan)
   - Learn more about the great things the Kovan Team are doing [here](https://kovan-testnet.github.io/website/)
-- In order to donate, one would need to go to Uniswap at [here](https://app.uniswap.org/#/swap) (NOTE: make sure your MetaMask is connected to Kovan) 
-- Select the Kovan network from the "Select a network" drop down menu
+- In order to donate, one would need to go to Uniswap, [here](https://app.uniswap.org/#/swap).
+  - Make sure Metamask is connected to "Kovan Test Network"
 - Ensure that ETH is shown in the upper swap dialogue box
-- Then to be able to swap to GYV, drop down the menu on the lower swap dialogue box
-- Copy the following address 0x96F407d2DfD6B185d120e6d89171c9146721DF00 and paste it into this lower swap dialogue box "search name or paste address" under Select a Token
-- THe GYV token will appear in the list and you can add this to your swappable token list
+- In order to swap ETH for GYV, use the drop down on the lower swap dialogue box
+- Copy the following address 0x96F407d2DfD6B185d120e6d89171c9146721DF00 and paste it into this lower swap dialogue box "search name or paste address" (under "Select a Token")
+- The GYV token will appear in the list and you can now add this to your swappable token list
 - Swap the Ethereum you've just added to your wallet for GYV
 - If you return to your Metamask wallet, you can now add GYV to your assets
 - Now you're in a position to donate!!!
-- NOTE: Having completed this one time series of steps you will not need to do so again, as the token has now been added to your wallet
+  - NOTE: Having completed this one-time set of steps, you will not need to do so again as the token has now been added to your wallet
 - From here on you can open Uniswap and immediately swap ETH for GYV
-- Below is all you need to know about the Frontend, and donating to your cause!
+- Below is all you need to know about the Frontend, and donating to your cause!  
 
 ![Oops, image not available](./images/gyv_chain_4.png "Gyv Chain Frontend")  
 
@@ -54,7 +54,7 @@ We laboured for many hours, downing many cups of coffee, losing many coins to th
 
 MetaMask integration with the Ethereum Testnet, our test wallets and the backend, all came together to make it work.  A little bit about the site and tools used, follows.
 
-### Home Page
+### **Home Page**
 
 This is the landing page for the site, and briefly lays out what we're about.  As one descends the page, the why is explained/revealed, touching on the tokenomics, the roadmap and selected/highlighted mock charity campaigns one can donate to and of course a number of links and buttons directing the user/donor to the "GYV" page, where one can do what one has come to the site to do ... donate!!
 
@@ -62,23 +62,29 @@ Across the top of the page, one can select the different aspects mentioned above
 
 ![Oops, image not available](./images/gyv_chain_1.png "Gyv Chain Frontend")  
 
-### GYV Page
+### **GYV Page**
 
-The most important of all the pages!  The place where one can donate.  The page responsible for all the coffee drunk and coins lost!
+*The most important of all the pages!*  
+The place where one can donate.  
+The page responsible for all the coffee drunk and coins lost!
 
-The "Connect" button is where the magic happens, calling the various bits of JavaScript that allow for the interaction with MetaMask, the integration to Moralis then to the blockchain (Kovan Testnet in this case) and the call to the smart-contract processing the donation itself (see next section for example).
+The "Connect" button is where the magic happens, calling the various bits of JavaScript that allow for the interaction with MetaMask, the integration to Moralis, then to the blockchain (Kovan Testnet in this case) and finally the call to the smart-contract processing the donation itself (see next section for example).
 
 ![Oops, image not available](./images/gyv_chain_2.png "Gyv Chain Frontend")  
 
-### The Contract
+Once Metamask has been connected to the page, and in order to interact with the contract and complete donation, the Charity to which the donation is to be sent, must be selected.  As highlighted on the Home page, the charities in this project, were the 3 fictitious charities in the example below.
 
-The contract was deployed on Kovan and is viewable to anyone on the planet at the Kovan-specific etherscan address [here](https://kovan.etherscan.io/address/0x96F407d2DfD6B185d120e6d89171c9146721DF00).  Along with viewing the contract itself, every transaction and/or interaction (donations, setting up campaigns, etc.) can also be viewed.
-
-The minting of $GYV was simulated upon deployment.  From the Whitepaper, the initial supply was $GYV400,000,000 to the various accounts which hold the various alloction of funds (see [this](https://kovan.etherscan.io/tx/0x4c16fb28a22df9dbca40fc2d7dd5649e2fdc5784062740b5a5752589ac686f48) transaction on Kovan's etherscan for the breakdown)
-
-In order to interact the 
+Once the Charity is selected, the "Donate (GYV)" button should be clicked to finalise the donation.  Metamask will prompt to confirm the gas fees ... and that is it!!  Gyving complete!
 
 ![Oops, image not available](./images/gyv_chain_5.png "Selecting the campaign")  
+
+### **The Contract**
+
+The contract was deployed on Kovan and is viewable to anyone on the planet at the Kovan-specific etherscan address, [here](https://kovan.etherscan.io/address/0x96F407d2DfD6B185d120e6d89171c9146721DF00).  
+
+Along with viewing the contract itself, every transaction and/or interaction (donations, setting up campaigns, etc.) can also be viewed at the contract address.
+
+The minting of $GYV was simulated upon deployment.  The initial supply was $GYV400,000,000 (see the Whitepaper for more), distributed to accounts which hold the various allocation of funds (see [this](https://kovan.etherscan.io/tx/0x4c16fb28a22df9dbca40fc2d7dd5649e2fdc5784062740b5a5752589ac686f48) transaction on Kovan's etherscan for the breakdown).
 
 ## Whitepaper
 

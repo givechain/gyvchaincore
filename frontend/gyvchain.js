@@ -1,5 +1,7 @@
 // Moralis.initialize("MORALIS_APPLICATION_ID"); // Application id from moralis.io
 // Moralis.serverURL = "MORALIS_SERVER_URL"; //Server url from moralis.io
+const serverUrl = "https://w9wwtgzzzig8.usemoralis.com:2053/server"; //Server url from moralis.io
+const appId = "9cgNLT5Cd6t7Npfcrx82AMs66cWFJyrJJvfo4KZO"; // Application id from moralis.io
 Moralis.start({ serverUrl, appId });
 
 // GYV Chain Contract addresses
