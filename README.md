@@ -24,29 +24,39 @@ As a concept, GYV Chain is an early representation of the potential and capacity
 
 Here are a few little points on how to prep for the firing up of our home page and then actually donating!
 
+**Site**
 - "Download" this very project from GitHub (select "download.zip" by pressing the CODE button) and open the zip file
 - Be sure to unzip the file to ensure the pages load correctly
 - Navigate to the following directory with your preferred browser (Chromium is recommended) and open the page Home.html
-  - `./frontend/GYVweb1.1/Home.html`
+  - `./frontend/GYVweb1.1/Home.html`  
+
+**Metamask**
 - Prepare for a donation by setting up MetaMask (a secure wallet, easy to use)
   - MetaMask has a great starter article [here](https://metamask.zendesk.com/hc/en-us/articles/360015489531-Getting-started-with-MetaMask)
   - Add Ethereum to your wallet.  NOTE: this needs to be done on the Kovan Testnet using what is known as a faucet, a.k.a a tap :)
   - A really good faucet can be found [here](https://faucets.chain.link/kovan)
-  - Learn more about the great things the Kovan Team are doing [here](https://kovan-testnet.github.io/website/)
+  - Learn more about the great things the Kovan Team are doing [here](https://kovan-testnet.github.io/website/)  
+
+**Uniswap**
 - In order to donate, one would need to go to Uniswap, [here](https://app.uniswap.org/#/swap).
   - Make sure Metamask is connected to "Kovan Test Network"
 - Ensure that ETH is shown in the upper swap dialogue box
+
+![Oops, image not available](./images/gyv_chain_6.png "Gyv Chain Frontend")  
+
 - In order to swap ETH for GYV, use the drop down on the lower swap dialogue box
 - Copy the following address 0x96F407d2DfD6B185d120e6d89171c9146721DF00 and paste it into this lower swap dialogue box "search name or paste address" (under "Select a Token")
 - The GYV token will appear in the list and you can now add this to your swappable token list
-- Swap the Ethereum you've just added to your wallet for GYV
-- If you return to your Metamask wallet, you can now add GYV to your assets
-- Now you're in a position to donate!!!
-  - NOTE: Having completed this one-time set of steps, you will not need to do so again as the token has now been added to your wallet
-- From here on you can open Uniswap and immediately swap ETH for GYV
-- Below is all you need to know about the Frontend, and donating to your cause!  
+> Having completed this one-time set of steps, you will not need to do so again as the token has now been added to your wallet
+- Swap the Ethereum you've just added to your wallet for GYV (as below)
 
 ![Oops, image not available](./images/gyv_chain_4.png "Gyv Chain Frontend")  
+
+- If you return to your Metamask wallet, you can now add GYV to your assets
+- Now you're in a position to donate!!!
+- From here on you can open Uniswap and immediately swap ETH for GYV
+
+What follows is all you need to know about the Frontend, and donating to your cause!  
 
 ## Frontend
 
