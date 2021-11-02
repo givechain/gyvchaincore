@@ -27,8 +27,9 @@ Here are a few little points on how to prep for the firing up of our home page a
 **Site**
 - "Download" this very project from GitHub (select "download.zip" by pressing the CODE button) and open the zip file
 - Be sure to unzip the file to ensure the pages load correctly
-- Navigate to the following directory with your preferred browser (Chromium is recommended) and open the page Home.html
-  - `./frontend/GYVweb1.1/Home.html`  
+- Using VSCode and the LiveServer Plugin (or Python's webserver or another option), right-click `./frontend/GYVweb1.1/index.html` and select "Open with Live Server".
+
+![Oops, image not available](./images/gyv_chain_7.png "VSCode selection")  
 
 **Metamask**
 - Prepare for a donation by setting up MetaMask (a secure wallet, easy to use)
@@ -42,7 +43,7 @@ Here are a few little points on how to prep for the firing up of our home page a
   - Make sure Metamask is connected to "Kovan Test Network"
 - Ensure that ETH is shown in the upper swap dialogue box
 
-![Oops, image not available](./images/gyv_chain_6.png "Gyv Chain Frontend")  
+![Oops, image not available](./images/gyv_chain_6.png "Uniswap prep")  
 
 - In order to swap ETH for GYV, use the drop down on the lower swap dialogue box
 - Copy the following address 0x96F407d2DfD6B185d120e6d89171c9146721DF00 and paste it into this lower swap dialogue box "search name or paste address" (under "Select a Token")
